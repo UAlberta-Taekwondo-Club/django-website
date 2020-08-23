@@ -1,0 +1,73 @@
+{%extends "main/base.html"%}
+{% block content%}
+
+<div class="announcements">
+
+	{% for announcement in pinned %}
+	<div class="announcement">
+		<small>&#128204&#xFE0E; Pinned</small>
+		{% if announcement.title_link %}
+			<a href="{{ announcement.title_link }}" style="text-decoration: underline;" class="announcement-title">{{ announcement.title }}</a>
+		{% else %}
+			<div class="announcement-title">{{ announcement.title }}</div>
+		{% endif %}
+		<small>{{ announcement.date_posted }}</small>
+		<div>{{ announcement.description }}</div>
+		{% if announcement.image %}
+			<img src="{{ announcement.image.url }}" class="image">
+		{% endif %}
+	</div>
+	{% endfor %}
+
+	{% for announcement in announcements %}
+	<div class="announcement">
+		{% if announcement.title_link %}
+			<a href="{{ announcement.title_link }}" style="text-decoration: underline;" class="announcement-title">{{ announcement.title }}</a>
+		{% else %}
+			<div class="announcement-title">{{ announcement.title }}</div>
+		{% endif %}
+		<small>{{ announcement.date_posted }}</small>
+		<div>{{ announcement.description }}</div>
+		{% if announcement.image %}
+			<img src="{{ announcement.image.url }}" class="image">
+		{% endif %}
+	</div>
+	{% endfor %}
+
+</div>
+
+<style type="text/css">
+	.nav-announcements{
+		color: black;
+	}
+	.announcements{
+		display: inline-flex;
+		flex-direction: column;
+		width: 100%;
+		align-items: center;
+		margin-top: 1%;
+	}
+	.announcement{
+		display: inline-flex;
+		flex-direction: column;
+		width: 40%;
+		padding: 1%;
+		border-bottom: 1px solid rgb(220,220,220);
+		border-top: 1px solid rgb(220,220,220);
+		text-align: left;
+	}
+	.announcement:hover{
+		box-shadow: 0px 10px 20px 5px rgb(230,230,230);
+	}
+	.announcement-title{
+		font-weight: 600;
+		font-size: 25px;
+		font-family: "verdana";
+	}
+	.image{
+		align-self: center;
+		max-height: 250px;
+	}
+</style>
+
+{% endblock content %}

@@ -1,0 +1,191 @@
+{%extends "main/base.html"%}
+{% block content%}
+
+<div class="block">
+
+	<div class="about-header">ABOUT US</div>
+	<div class="about">
+		{{ about.about_us }}
+	</div>
+	<div class="register-block">
+		<button class="register" onclick="window.open('{{ register.url }}')">Register</button>
+	</div>
+	
+	<img class="main-photo" src="{{ main_photo.url }}">
+
+	<div class="execs">
+		<div class="header">Execs</div>
+		{% for exec in execs %}
+			<div class="exec">
+				<img class="profile" src="{{ exec.image.url }}">
+				<div class="exec-name">{{ exec.name }}</div>
+				<div>{{ exec.position|upper }}</div>
+				{% if exec.detail %}
+					<div>{{ exec.detail }}</div>
+				{% endif %}
+			</div>
+		{% endfor %}
+	</div>
+	
+	<div class="mentors">
+		<div class="header">Mentors</div>
+		{% for mentor in mentors %}
+			<div class="mentor">
+				<img class="profile" src="{{ mentor.image.url }}">
+				<div class="mentor-name">{{ mentor.name }}</div>
+				{% if mentor.position %}
+					<div>{{ mentor.position|upper }}</div>
+				{% endif %}
+				{% if mentor.detail %}
+					<div>{{ mentor.detail }}</div>
+				{% endif %}
+			</div>
+		{% endfor %}
+	</div>
+	
+	<div class="faqs">
+		<div class="header">FAQs</div>
+		{% for FAQ in FAQs %}
+			<div class="faq">
+				<div class="faq-question">{{ FAQ.question }}</div>
+				<div class="faq-answer">{{ FAQ.answer }}</div>
+			</div>
+		{% endfor %}
+	</div>
+
+	<footer>
+		<table>
+			{% for contact in contacts %}
+			<tr>
+				<td style="text-align: right;">{{ contact.platform|lower }}</td>
+				<td><button class="contact-link" onclick="window.open('{{ contact.url }}')">{{ contact.username|lower }}</button></td>
+			</tr>
+			{% endfor %}
+		</table>
+	</footer>
+</div>
+
+<style type="text/css">
+	.nav-about{
+		color: black;
+	}
+	.block{
+		display: inline-flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+	}
+	.about{
+		background-color: #43515d;
+		color: white;
+		padding: 3%;
+		padding-left: 25%;
+		margin-left: 10%;
+		padding-bottom: 2px;
+		width: 45%;
+		z-index: -2;
+		min-height: 300px;
+	}
+	.about-header{
+		position: absolute;
+		top: 100px;
+		left: 25%;
+		color: white;
+		font-weight: bold;
+		font-family: "helvetica";
+		letter-spacing: 2px;
+		font-size: 14px;
+	}
+	.main-photo{
+		position: absolute;
+		top: 150px;
+		left: 5%;
+		width: 35%;
+		z-index: -1;
+	}
+	.register{
+		padding: 1%;
+		margin: 1%;
+		margin-right: 5%;
+		border: 1px solid white;
+		background-color: #43515d;
+		color: white;
+		font-family: "helvetica";
+		font-weight: 600;
+	}
+	.register-block{
+		text-align: right;
+		margin-left: 10%;
+		width: 73%;
+		background-color: #43515d;
+		height: max-content;
+	}
+	.register:hover{
+		background-color: white;
+		color: black;
+	}
+	.execs,.mentors{
+		width: 60%;
+		border-top: 1px solid rgb(200,200,200);
+		margin-top: 2%;
+		display: inline-flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	.exec,.mentor{
+		text-align: center;
+		margin: 1%;
+		margin-bottom: 2%;
+		width: 160px;
+	}
+	.exec-name,.exec-name{
+		font-size: 30px;
+	}
+	.header{
+		font-size: 30px;
+		color: rgb(80,80,80);
+		margin-bottom: 1%;
+		width: 100%;
+	}
+	.profile{
+		width: 150px;
+		height: 150px;
+		border-radius: 50%;
+	}
+	.faqs{
+		width: 60%;
+		border-top: 1px solid rgb(200,200,200);
+		margin-top: 2%;
+		display: inline-flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+	.faq{
+		padding: .5%;
+	}
+	.faq-question{
+		font-weight: 600;
+		font-family: "helvetica";
+	}
+	.faq-answer{
+		padding-left: 3%;
+	}
+	footer{
+		margin-top: 2%;
+		background-color: black;
+		width: 96%;
+		color: white;
+		padding: 2%;
+		display: flex;
+		justify-content: center;
+	}
+	.contact-link{
+		text-align: left;
+		background-color: black;
+		border: none;
+		color: white;
+	}
+</style>
+
+{% endblock content %}

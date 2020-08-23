@@ -1,0 +1,175 @@
+{%extends "main/base.html"%}
+{% block content%}
+{% load static %}
+
+<div class="block">
+
+	<div style="margin-bottom: .5%;">
+		<button id="selected">List</button>
+		<button id="not-selected" onclick="window.location.href='{% url 'events-calendar' %}'">Calendar</button>
+	</div>
+	<a href="{% url 'events-past' %}" class="events-past">see past events</a>
+	<div class="events">
+		
+	{% for event in events %}
+		<div class="event">
+			<div class="event-widget">
+				<div class="event-widget-weekday">{{ event.start|date:"l" }}</div>
+				<div class="event-widget-day">{{ event.start.day }}</div>
+				<div class="event-widget-month">{{ event.start|date:"F" }}</div>
+			</div>
+			<table class="event-body">
+				{% if event == events.first %}
+					<tr>
+						<td class="upcoming-event" colspan="2">Upcoming Event</td>
+					</tr>
+				{% endif %}
+				<tr>
+					<td class="event-title" colspan="2">{{ event.title }}</td>
+				</tr>
+				<tr>
+					<td class="icon"><img src="{% static 'icon-calendar.png' %}" width="20px"></td>
+					{% if event.start.date == event.end.date %}
+						<td class="event-date">{{ event.start.date }}</td>
+					{% else %}
+						<td class="event-date">{{ event.start.date }} - {{ event.end.date }}</td>
+					{% endif %}
+				</tr>
+				<tr>
+					<td></td>
+					<td class="event-time">{{ event.start.time }} - {{ event.start.time }}</td>
+				</tr>
+				<tr>
+					<td class="icon"><img src="{% static 'icon-location.png' %}" width="16px"></td>
+					<td class="event-location">{{ event.location }}</td>
+				</tr>
+				<tr>
+					<td class="dollar">$</td>
+					{% if event.cost == 0 %}
+						<td class="event-cost">FREE</td>
+					{% else %}
+						<td class="evemt-cost">${{ event.cost }}</td>
+					{% endif %}
+				</tr>
+				<tr>
+					<td class="event-subtitle" colspan="2">Details</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td class="event-detail">{{ event.details }}</td>
+				</tr>
+			</table>
+
+			{% if event.button_url %}
+			<button class="event-link" onclick="window.open('{{ event.button_url }}')">
+				{{ event.button_label }}
+			</button>
+			{% endif %}
+		</div>
+	{% endfor %}
+	</div>
+</div>
+
+<style type="text/css">
+	.nav-events{
+		color: black;
+	}
+	button{
+		padding: 1%;
+		padding-left: 2%;
+		padding-right: 2%;
+		background-color: white;
+		width: 8%;
+	}
+	.block{
+		text-align: center;
+	}
+	#selected{
+		border-bottom: 2px solid #0D98BA;
+	}
+	#not-selected:hover{
+		border-bottom: 2px solid #0D98BA;
+	}
+	.events{
+		display: inline-flex;
+		flex-direction: column;
+		width: 100%;
+		align-items: center;
+		margin-top: 1%;
+	}
+	.events-past:hover{
+		text-decoration: underline;
+	}
+	.event{
+		display: inline-flex;
+		flex-direction: row;
+		width: 50%;
+		padding: 1%;
+		border-bottom: 1px solid rgb(220,220,220);
+		border-top: 1px solid rgb(220,220,220);
+		text-align: left;
+	}
+	.event:hover{
+		box-shadow: 0px 10px 20px 5px rgb(230,230,230);
+	}
+	.event-title{
+		font-weight: 600;
+		font-size: 25px;
+		font-family: "verdana";
+		padding-bottom: 2%;
+	}
+	.event-subtitle{
+		padding-top: 2%;
+		font-weight: 600;
+		font-size: 17px;
+		font-family: "verdana";
+	}
+	.event-body{
+		width: 70%;
+	}
+	.event-link{
+		margin-left: auto;
+		align-self: flex-start;
+		background-color: #0e8548;
+		color: white;
+		width: 10%;
+		border-radius: 5px;
+	}
+	.event-link:hover{
+		background-color: #00A86B;
+	}
+	.event-widget{
+		display: inline-flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: .5%;
+		align-items: center;
+		width: 140px;
+		height: 140px;
+		border: 1px solid rgb(200,200,200);
+		border-radius: 25px;
+		margin-right: 5%;
+	}
+	.event-widget-day{
+		font-size: 50px;
+	}
+	.event-widget-weekday, .event-widget-month{
+		color: #ff665e;
+		font-family: "calibri light";
+		font-size: 20px;
+	}
+	.dollar{
+		font-weight: 700;
+		font-family: "calibri";
+		width: 20px;
+		font-size: 25px;
+	}
+	.icon, .dollar{
+		width: 35px;
+	}
+	.upcoming-event{
+		color: #ff665e;
+	}
+</style>
+
+{% endblock content %}

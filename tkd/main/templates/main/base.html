@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>UAlberta Taekwondo</title>
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="{% static 'logo-1.png' %}"/>
+	<!-- thumbnail -->
+	<meta property="og:site_name" content="UAlberta Taekwondo"/>
+	<meta property="og:image" content="{% static 'logo-1.png' %}"/>
+	<meta property="og:type" content="Martial Arts Club"/>
+	<meta property="og:url" content="tkd.pythonanywhere.com"/>
+	<meta property="og:title" content="UAlberta	Taekwondo"/>
+	<meta property="og:description" content="Taekwondo Martial Arts Club at University of Alberta"/>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-176116807-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-176116807-1');
+	</script>
+
+</head>
+<body>
+	<nav>
+		<a href="{% url 'home' %}" class="nav-home">UAlberta Taekwondo</a>
+		<a href="{% url 'announcements' %}" class="nav-announcements">Announcements</a>
+		<a href="{% url 'events-list' %}" class="nav-events">Events</a>
+		<a href="{% url 'form' newest_form_id %}" class="nav-forms">Forms</a>
+		<a href="{% url 'gallery' %}" class="nav-gallery">Gallery</a>
+		<a href="{% url 'about' %}" class="nav-about">About</a>
+	</nav>
+
+	<style type="text/css">
+		/*Have this in front, so pages can override*/
+		.nav-announcements, .nav-events, .nav-forms, .nav-gallery, .nav-about{
+			flex: 1;
+			color: rgb(150,150,150);
+		}
+		.nav-home{
+			flex: 2;
+			font-family: "helvetica";
+			font-size: 20px;
+		}
+		.nav-announcements:hover{
+			color: black;
+			transition: .2s;
+		}
+		.nav-events:hover{
+			color: black;
+			transition: .2s;
+		}
+		.nav-forms:hover{
+			color: black;
+			transition: .2s;
+		}
+		.nav-gallery:hover{
+			color: black;
+			transition: .2s;
+		}
+		.nav-about:hover{
+			color: black;
+			transition: .2s;
+		}
+	</style>
+
+	{% block content %}{% endblock %}
+
+</body>
+
+<style type="text/css">
+	body{
+		margin: 0;
+		font-family: "calibri light", "helvetica", "arial", "calibri";
+		font-size: 18px;
+	}
+	nav{
+		position: sticky;
+		position: -webkit-sticky;
+  		top: 0;
+		width: 94%;
+		padding: 1%;
+		border-bottom: 1px solid rgb(220,220,220);
+		margin-top: 0;
+		display: flex;
+		text-align: center;
+		backdrop-filter: blur(50px);
+		padding-right: 5%;
+	}
+	a{
+		text-decoration: none;
+		color: black;
+	}
+	button{
+		cursor: pointer;
+		font-family: "calibri light";
+		font-size: 17px;
+		border: none;
+	}
+</style>
+</html>

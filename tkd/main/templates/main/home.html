@@ -1,0 +1,391 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>UAlberta Taekwondo</title>
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="{% static 'logo-1.png' %}"/>
+	<!-- thumbnail -->
+	<meta property="og:site_name" content="UAlberta Taekwondo"/>
+	<meta property="og:image" content="{% static 'logo-1.png' %}"/>
+	<meta property="og:type" content="Martial Arts Club"/>
+	<meta property="og:url" content="tkd.pythonanywhere.com"/>
+	<meta property="og:title" content="UAlberta	Taekwondo"/>
+	<meta property="og:description" content="Taekwondo Martial Arts Club at University of Alberta"/>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-176116807-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-176116807-1');
+	</script>
+
+</head>
+<body>
+	<nav id="nav">
+		<div class="nav-home"></div>
+		<a href="{% url 'announcements' %}" class="nav-announcements">Announcements</a>
+		<a href="{% url 'events-list' %}" class="nav-events">Events</a>
+		<a href="{% url 'form' newest_form_id %}" class="nav-forms">Forms</a>
+		<a href="{% url 'gallery' %}" class="nav-gallery">Gallery</a>
+		<a href="{% url 'about' %}" class="nav-about">About</a>
+	</nav>
+
+	<div id="image">
+		<img src="{{ main_photo.image.url }}" width="100%;" >
+	</div>
+
+	<table class="logos">
+		<tr>
+			<td><img src="{% static 'logo-1.png' %}" id="logo-left" ></td>
+			<td><div id="logo-bar"></div></td>
+			<td><img src="{% static 'logo-2.png' %}" id="logo-right"></td>
+		</tr>
+	</table>
+
+	<div id="panels">
+
+		<div class="panel">
+			<a href="{% url 'announcements' %}" class="panel-title">Announcements</a>
+				<div class="panel-content">
+					{% for announcement in announcements %}
+						<div class="item">
+							{% if announcement.title_link %}
+								<a href="{{ announcement.title_link }}" style="text-decoration: underline;" class="item-title">{{ announcement.title }}</a><br>
+							{% else %}
+								<div class="item-title">{{ announcement.title }}</div>
+							{% endif %}
+							<small>{{ announcement.date_posted }}</small>
+							<div>{{ announcement.description }}</div>
+						</div>
+					{% endfor %}
+				</div>
+		</div>
+
+		<div class="panel">
+			<a href="{% url 'events-list' %}" class="panel-title">Events</a>
+				<div class="panel-content">
+					{% for event in events %}
+						<table class="item">
+						<tr>
+							<td class="item-title" colspan="2">{{ event.title }}</td>
+							<td>Details</td>
+						</tr>
+						<tr>
+							<td><img src="{% static 'icon-calendar.png' %}" width="17px"></td>
+							{% if event.start.date == event.end.date %}
+								<td>{{ event.start.date }}</td>
+							{% else %}
+								<td>{{ event.start.date }} - {{ event.end.date }}</td>
+							{% endif %}
+							<td rowspan="3" style="vertical-align: top;width: 60%;">{{ event.details }}</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>{{ event.start.time }} - {{ event.start.time }}</td>
+						</tr>
+						<tr>
+							<td><img src="{% static 'icon-location.png' %}" width="13px"></td>
+							<td>{{ event.location }}</td>
+						</tr>
+						<tr>
+							<td class="dollar">$</td>
+							{% if event.cost == 0 %}
+								<td>FREE</td>
+							{% else %}
+								<td>${{ event.cost }}</td>
+							{% endif %}
+							<td>
+								{% if event.button_url %}
+								<button class="item-btn" onclick="window.open('{{ event.button_url }}')">
+									{{ event.button_label }}
+								</button>
+								{% endif %}
+							</td>
+						</tr>
+					</table>
+					{% endfor %}
+				</div>
+		</div>
+
+		<div class="panel">
+			<a href="{% url 'form' newest_form_id %}" class="panel-title">Forms</a>
+				<div class="panel-content">
+					{% for form in forms %}
+					<table class="item">
+						<tr>
+							<td style="width: 80%;" class="item-title">{{ form.title }}</td>
+							<td><button class="item-btn" onclick="window.open('{{ form.url }}')">Form Link</button></td>
+						</tr>
+					</table>				
+					{% endfor %}
+				</div>
+		</div>
+
+		<div class="panel">
+			<div class="panel-title">Practice Times</div>
+				<table class="practice-time">
+					<tr><td colspan="4">  </td></tr><tr><td colspan="4">  </td></tr>
+					<tr>
+						<td>Location</td>
+						<td colspan="3">{{ practice_times.location }}</td>
+					</tr>
+					<tr><td colspan="4">  </td></tr><tr><td colspan="4">  </td></tr>
+					{% for time in practice_times.times.all %}
+						<tr>
+							<td>{{ time.day|capfirst }}</td>
+							<td>{{ time.start }}</td>
+							<td>-</td>
+							<td>{{ time.end }}</td>
+						</tr>
+					{% endfor %}
+				</table>
+		</div>
+	</div>
+
+	<footer>
+		<button class="register" onclick="window.open('{{ register.url }}')">Register</button>
+		<table>
+			{% for contact in contacts %}
+			<tr>
+				<td style="text-align: right;">{{ contact.platform|lower }}</td>
+				<td><button class="contact-link" onclick="window.open('{{ contact.url }}')">{{ contact.username|lower }}</button></td>
+			</tr>
+			{% endfor %}
+		</table>
+		<br><br>
+		<small>Developed and designed by Weichen Qiu</small>
+	</footer>
+
+</body>
+
+<style type="text/css">
+	body{
+		margin: 0;
+		font-family: "calibri light", "helvetica", "arial", "calibri";
+		font-size: 18px;
+		text-align: center;
+	}
+	nav{
+		width: 94%;
+		padding: 1%;
+		padding-right: 5%;
+		margin-top: 0;
+		display: flex;
+		text-align: center;
+		position: absolute;
+		top:0;
+		left:0;
+		font-size: 25px;
+		opacity: 0;
+	}
+	a{
+		text-decoration: none;
+		color: black;
+	}
+	button{
+		cursor: pointer;
+		font-family: "calibri light";
+		font-size: 17px;
+		border: none;
+	}
+	.nav-announcements, .nav-events, .nav-forms, .nav-gallery, .nav-about{
+		flex: 1;
+		color: white;
+	}
+	.nav-home{
+		flex: 2;
+	}
+	#image{
+		width: 100%; 
+		height: 750px; 
+		overflow: hidden;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: -1;
+		filter: grayscale(100%);
+	}
+
+	.logos{
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 17%;
+	}
+	#logo-bar{
+		background-color: white;
+		width: 10px;
+		height: 10px;
+		display: inline-flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+	#panels{
+		margin-top: 33vh;
+		opacity: 0;
+		width: 100%;
+		display: inline-flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: flex-start;
+		justify-content: center;
+	}
+	.panel{
+		width: 40%;
+		border: 1px solid #007C41;
+		display: inline-flex;
+		flex-direction: column;
+		background-color: white;
+		margin: 3%;
+		margin-top: 0;
+		padding: 1%;
+		padding-top: 0;
+	}
+	.panel-title{
+		padding-top: 1%;
+		margin-left: -2.5%;
+		margin-right: -2.5%;
+		background-color: #007C41;
+		color: white;
+		flex: 1 1 auto;
+		font-weight: 600;
+		font-size: 20px;
+		font-family: "verdana";
+	}
+	.panel-title:hover{
+		background-color: #FFDB05;
+	}
+	.panel-content{
+		overflow-y: scroll;
+		overflow-x: hidden;
+		height: 300px;
+		text-align: left;
+		padding: 1%;
+	}
+	.item{
+		border-bottom: 1px solid rgb(220,220,220);
+		border-top: 1px solid rgb(220,220,220);
+		width: 98%;
+		padding: 1%;
+	}
+	.item:hover{
+		box-shadow: 0px 10px 20px 5px rgb(230,230,230);
+	}
+	.item-form{
+		display: inline-flex;
+		flex-direction: row;
+	}
+	.item-title{
+		font-weight: 400;
+
+		font-family: 'verdana';
+	}
+	.practice-time{
+		width: 70%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	footer{
+		margin-top: 1%;
+		background-color: black;
+		width: 96%;
+		color: white;
+		padding: 2%;
+		padding-top: 1%;
+		display: inline-flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	.contact-link{
+		float: left;
+		background-color: black;
+		border: none;
+		color: white;
+	}
+	.register{
+		padding: .5%;
+		border: 1px solid white;
+		background-color: black;
+		color: white;
+		font-family: "helvetica";
+		font-weight: 600;
+		margin-bottom: 1%;
+	}
+	.register:hover{
+		background-color: white;
+		color: black;
+	}
+	.dollar{
+		font-weight: 700;
+		font-family: "calibri";
+		width: 18px;
+		font-size: 25px;
+		padding-right: 11px;
+	}
+	.item-btn:hover{
+		color: white;
+		background-color: black;
+	}
+
+	.nav-announcements:hover{
+		text-decoration: underline;
+	}
+	.nav-events:hover{
+		text-decoration: underline;
+	}
+	.nav-forms:hover{
+		text-decoration: underline;
+	}
+	.nav-gallery:hover{
+		text-decoration: underline;
+	}
+	.nav-about:hover{
+		text-decoration: underline;
+	}
+	#logo-left{
+		padding-right: 200px;
+		opacity: 0;
+	}
+	#logo-right{
+		padding-left: 200px;
+		opacity: 0;
+	}
+</style>
+
+<script type="text/javascript">
+	// animation
+	window.onload = function(){
+		// panels
+		var panels = document.getElementById("panels")
+		panels.style.transition = "1s";
+		panels.style.opacity = "100%";
+		panels.style.transform = "translate(0,-5vh)";
+		// nav bar
+		var nav = document.getElementById("nav")
+		nav.style.transition = "1s";
+		nav.style.opacity = "100%";
+		// image
+		var image = document.getElementById("image")
+		image.style.transition = "1s";
+		image.style.filter = "grayscale(0%)";
+		// logo left
+		var logo_left = document.getElementById("logo-left")
+		logo_left.style.transition = "1s";
+		logo_left.style.opacity = "100%";
+		logo_left.style.paddingRight = "2px";
+		// logo right
+		var logo_right = document.getElementById("logo-right")
+		logo_right.style.transition = "1s";
+		logo_right.style.opacity = "100%";
+		logo_right.style.paddingLeft = "2px";
+		// logo bar
+		var logo_bar = document.getElementById("logo-bar")
+		logo_bar.style.transition = "1s";
+		logo_bar.style.height = "170px";
+	}
+</script>
+
+</html>

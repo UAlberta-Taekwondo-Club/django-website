@@ -1,0 +1,115 @@
+{%extends "main/base.html"%}
+{% block content%}
+
+<div class="block">
+
+	<div class="panel">
+
+		<div class="menu">
+			{% for form in forms %}
+				{% if form.title == selected_form.title %}
+					<button class="selected-form" class="menu-form">{{ form.title }}</button>
+				{% else %}
+					<button class="menu-form" onclick="window.location.href='{% url 'form' form.id %}'">{{ form.title }}</button>
+				{% endif %}
+			{% endfor %}
+		</div>
+
+		<div class="form-info">
+			<div style="display: inline-flex; flex-direction: row;">
+				<div class="form-info-title">{{ selected_form.title }}</div>
+				<button class="form-info-btn" onclick="window.open('{{ selected_form.url }}')">Form Link</button>
+			</div>
+			<div style="word-wrap: break-word; width: 100%;">Link: {{ selected_form.url }}</div>
+		</div>
+
+		<small style="align-self: center;">
+			<em>"accounts.google.com refused to connect"</em> error - login to ualberta account and try again or click <em>Form Link</em>
+		</small>
+
+	</div>
+	
+	<iframe src="{{selected_form.url}}" width="70%" height="900" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+	
+</div>
+
+<style type="text/css">
+	.nav-forms{
+		color: black;
+	}
+	.menu{
+		display: inline-flex;
+		flex-direction: column;
+		align-items: stretch;
+		border: 1px solid rgb(200,200,200);
+		border-top: none;
+		max-height: 600px;
+		overflow-y: scroll; 
+		margin: 3%;
+		margin-top: 0;
+		padding-top: 1%;
+	}
+	.form-info{
+		border: 1px solid rgb(200,200,200);
+		margin: 3%;
+		padding: 2%;
+		display: inline-flex;
+		flex-direction: column;
+	}
+	.form-info-title{
+		font-size: 20px;
+		font-family: "verdana";
+		margin-bottom: 2%;
+	}
+	.form-info-btn{
+		padding: 1%;
+		padding-left: 3%;
+		padding-right: 3%;
+		display: inline;
+		border-radius: 20px;
+		background-color: #0071e3;
+		color: white;
+		margin-left: auto;
+	}
+	.form-info-btn:hover{
+		transform: scale(1.05);
+		transition: .2s;
+	}
+	.menu-form{
+		background-color: white;
+		padding: 1%;
+		border: 1px solid white;
+		font-size: 20px;
+		font-weight: 500;
+		font-family: "helvetica"
+	}
+	.selected-form{
+		cursor: none;
+		background-color: rgb(240,240,240);
+		font-size: 20px;
+		font-weight: 500;
+		font-family: "helvetica";
+		border: 1px solid white;
+		padding: 1%;
+	}
+	.menu-form:hover{
+		border-top: 1px solid rgb(200,200,200);
+		border-bottom: 1px solid rgb(200,200,200);
+		transition: .5s;
+	}
+	.selected-form:hover{
+		border: 1px solid rgb(200,200,200);
+		transition: .5s;
+	}
+	.block{
+		display: inline-flex;
+		flex-direction: row;
+		width: 100%;
+	}
+	.panel{
+		display: inline-flex;
+		flex-direction: column;
+	}
+</style>
+
+{% endblock content %}
