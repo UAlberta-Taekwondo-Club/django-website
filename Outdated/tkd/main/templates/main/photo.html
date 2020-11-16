@@ -1,0 +1,76 @@
+{%extends "main/base.html"%}
+{% block content%}
+
+<div class="block">
+
+	<a class="close" href="{% url 'gallery' %}">X</a>
+
+	<div class="previous">
+		{% if previous %}
+			<a href="{% url 'photo' previous.id %}" class="btn"><</a>
+		{% endif %}
+	</div>
+
+	<div class="image">
+		<img src="{{ photo.image.url }}">
+	</div>
+
+	<div class="next">
+		{% if next %}
+			<a href="{% url 'photo' next.id %}" class="btn">></a>
+		{% endif %}
+	</div>
+
+</div>
+
+<style type="text/css">
+	.previous, .next{
+		width: 10%;
+		font-size: 35px;
+		transform: scale(1, 5);
+		font-family: "serif";
+		font-weight: 1;
+		display: flex;
+	}
+	.close{
+		font-family: "calibri light";
+		font-weight: 1;
+		font-size: 60px;
+		position: absolute;
+		padding: 1%;
+		top: 7vh;
+		left: 2%;
+		color: rgb(100,100,100);
+		transform: scale(1.5,1);
+	}
+	.btn{
+		flex: 1 1 auto;
+		padding-top: 10%;
+		padding-bottom: 10%;
+		color: rgb(100,100,100);
+	}
+	.btn:hover{
+		color: black;
+	}
+	.close:hover{
+		color: black;
+	}
+	.image{
+		width: 80%;
+	}
+	img{
+		max-width: 100%;
+	}
+	.block{
+		/*margin-top: 7%;*/
+		display: inline-flex;
+		flex-direction: row;
+		width: 100%;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		height: 80vh;
+	}
+</style>
+
+{% endblock content %}

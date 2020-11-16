@@ -1,5 +1,6 @@
 {%extends "main/base.html"%}
 {% block content%}
+{% load static %}
 
 <div class="block">
 
@@ -22,7 +23,7 @@
 					<td class="event-title" colspan="2">{{ event.title }}</td>
 				</tr>
 				<tr>
-					<td class="icon"><img src="/media/static/icon-calendar.png" width="20px"></td>
+					<td class="icon"><img src="{% static 'icon-calendar.png' %}" width="20px"></td>
 					{% if event.start.date == event.end.date %}
 						<td class="event-date">{{ event.start.date }}</td>
 					{% else %}
@@ -31,18 +32,18 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td class="event-time">{{ event.start.time }} - {{ event.start.time }}</td>
+					<td class="event-time">{{ event.start.time }} - {{ event.end.time }}</td>
 				</tr>
 				<tr>
-					<td class="icon"><img src="/media/static/icon-location.png" width="16px"></td>
-					<td class="event-location">{{ event.location }}</td>
+					<td class="icon"><img src="{% static 'icon-location.png' %}" width="16px"></td>
+					<td class="event-location">{{ event.location|safe }}</td>
 				</tr>
 				<tr>
 					<td class="dollar">$</td>
 					{% if event.cost == 0 %}
 						<td class="event-cost">FREE</td>
 					{% else %}
-						<td class="evemt-cost">${{ event.cost }}</td>
+						<td class="evemt-cost">${{ event.cost|safe }}</td>
 					{% endif %}
 				</tr>
 				<tr>
@@ -50,7 +51,7 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td class="event-detail">{{ event.details }}</td>
+					<td class="event-detail">{{ event.details|safe }}</td>
 				</tr>
 			</table>
 

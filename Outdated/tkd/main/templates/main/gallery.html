@@ -1,0 +1,85 @@
+{%extends "main/base.html"%}
+{% block content%}
+
+<div class="sub-nav">
+	<button id="selected">Photo</button>
+	<button id="not-selected" onclick="window.open('{{ youtube_url.url }}')">Video</button>
+</div>
+
+<script type="text/javascript">
+	var month = "{{ first.date_taken.month }}";
+	var year = "{{ first.date_taken.year }}";
+</script>
+
+<div id="photos">
+	<div class="section-header">
+		<label class="section-month">{{ first.date_taken|date:"F" }}</label> {{ first.date_taken.year }}
+	</div>
+	{% for photo in photos %}
+		<script type="text/javascript">
+			if ("{{photo.date_taken.month}}" != month || "{{photo.date_taken.year}}" != year){
+				document.getElementById("photos").innerHTML += `<div class="section-header">
+																	<label class="section-month">{{ photo.date_taken|date:"F" }}</label> {{ photo.date_taken.year }}
+																</div>
+														   `
+				month = "{{photo.date_taken.month}}" 
+				year = "{{photo.date_taken.year}}"
+			}	
+		</script>
+
+		<a class="photo" href="{% url 'photo' photo.id %}">
+			<img src="{{ photo.image.url }}">
+		</a>
+	{% endfor %}
+</div>
+
+<style type="text/css">
+	.nav-gallery{
+		color: black;
+	}
+	.section-header{
+		width: 100%;
+		font-size: 20px;
+		margin-left: -10%;
+	}
+	.section-month{
+		font-size: 30px;
+		padding-right: 1px;
+	}
+	#photos{
+		display: inline-flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		padding: 2%;
+		padding-left: 13%;
+		padding-top: 0;
+		align-items: center;
+	}
+	.sub-nav{
+		margin-bottom: 1%;
+		width: 100%;
+		text-align: center;
+	}
+	#selected{
+		border-bottom: 2px solid #0D98BA;
+	}
+	#not-selected:hover{
+		border-bottom: 2px solid #0D98BA;
+	}
+	button{
+		padding: 1%;
+		padding-left: 2%;
+		padding-right: 2%;
+		background-color: white;
+		width: 8%;
+	}
+	.photo{
+		width: 220px;
+		margin: 1%;
+	}
+	img{
+		width: 100%;
+	}
+</style>
+
+{% endblock content %}

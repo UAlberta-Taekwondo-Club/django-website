@@ -10,7 +10,7 @@
 	</div>
 	<a href="{% url 'events-past' %}" class="events-past">see past events</a>
 	<div class="events">
-		
+
 	{% for event in events %}
 		<div class="event">
 			<div class="event-widget">
@@ -41,14 +41,14 @@
 				</tr>
 				<tr>
 					<td class="icon"><img src="{% static 'icon-location.png' %}" width="16px"></td>
-					<td class="event-location">{{ event.location }}</td>
+					<td class="event-location">{{ event.location|safe }}</td>
 				</tr>
 				<tr>
 					<td class="dollar">$</td>
 					{% if event.cost == 0 %}
 						<td class="event-cost">FREE</td>
 					{% else %}
-						<td class="evemt-cost">${{ event.cost }}</td>
+						<td class="evemt-cost">${{ event.cost|safe }}</td>
 					{% endif %}
 				</tr>
 				<tr>
@@ -56,7 +56,7 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td class="event-detail">{{ event.details }}</td>
+					<td class="event-detail">{{ event.details|safe }}</td>
 				</tr>
 			</table>
 

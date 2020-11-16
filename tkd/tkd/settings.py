@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = 'da2t2@a80=nua$7h4yz&o-+6knr=#ftu-(9m4yk!5og1)ozvx%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["tkd.pythonanywhere.com"]
 
 
 # Application definition
@@ -121,7 +121,8 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+STATIC_ROOT = '/home/tkd/taekwondo-website/tkd/static/'
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
 # media folder
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -5,12 +5,12 @@
 
 	<div class="about-header">ABOUT US</div>
 	<div class="about">
-		{{ about.about_us }}
+		{{ about.about_us|safe }}
 	</div>
 	<div class="register-block">
 		<button class="register" onclick="window.open('{{ register.url }}')">Register</button>
 	</div>
-	
+
 	<img class="main-photo" src="{{ main_photo.url }}">
 
 	<div class="execs">
@@ -26,7 +26,7 @@
 			</div>
 		{% endfor %}
 	</div>
-	
+
 	<div class="mentors">
 		<div class="header">Mentors</div>
 		{% for mentor in mentors %}
@@ -42,13 +42,13 @@
 			</div>
 		{% endfor %}
 	</div>
-	
+
 	<div class="faqs">
 		<div class="header">FAQs</div>
 		{% for FAQ in FAQs %}
 			<div class="faq">
-				<div class="faq-question">{{ FAQ.question }}</div>
-				<div class="faq-answer">{{ FAQ.answer }}</div>
+				<div class="faq-question">{{ FAQ.question|safe }}</div>
+				<div class="faq-answer">{{ FAQ.answer|safe }}</div>
 			</div>
 		{% endfor %}
 	</div>

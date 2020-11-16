@@ -12,7 +12,7 @@
 			<div class="announcement-title">{{ announcement.title }}</div>
 		{% endif %}
 		<small>{{ announcement.date_posted }}</small>
-		<div>{{ announcement.description }}</div>
+		<div>{{ announcement.description|safe }}</div>
 		{% if announcement.image %}
 			<img src="{{ announcement.image.url }}" class="image">
 		{% endif %}
@@ -27,7 +27,7 @@
 			<div class="announcement-title">{{ announcement.title }}</div>
 		{% endif %}
 		<small>{{ announcement.date_posted }}</small>
-		<div>{{ announcement.description }}</div>
+		<div>{{ announcement.description|safe }}</div>
 		{% if announcement.image %}
 			<img src="{{ announcement.image.url }}" class="image">
 		{% endif %}

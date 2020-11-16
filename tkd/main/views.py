@@ -45,7 +45,7 @@ def events_list(request):
 
 def events_past(request):
 	context = {
-		'events':Event.objects.all(),
+		'events':Event.objects.filter(start__date__lt=timezone.now().date()).order_by('-start'),
 	}
 	return render(request, 'main/events_past.html', context)
 

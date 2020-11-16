@@ -3,7 +3,7 @@ from django.utils.html import mark_safe
 from PIL import Image
 
 class About(models.Model):
-	about_us = models.CharField(max_length=10000)
+	about_us = models.TextField()
 
 	def __str__(self):
 		return "About Us"
@@ -23,7 +23,7 @@ class MainPhoto(models.Model):
 		return "Main Photo"
 	def save(self):
 		# compress images
-		super().save() 
+		super().save()
 		if self.image:
 			img = Image.open(self.image.path)
 			output_size = (2000,1000)
@@ -36,9 +36,9 @@ class MainPhoto(models.Model):
 
 class Time(models.Model):
 	display_order = models.DecimalField(decimal_places=0, max_digits=2, help_text="Order to display (0 is displayed first)")
-	day = models.CharField(max_length=15, help_text="Weekday")
-	start = models.CharField(max_length=7, help_text="Start Time (Format: 00:00am)")
-	end = models.CharField(max_length=7, help_text="Start Time (Format: 00:00pm)")
+	day = models.CharField(max_length=50, help_text="Weekday")
+	start = models.CharField(max_length=50, help_text="Start Time (Format: 00:00am)")
+	end = models.CharField(max_length=50, help_text="Start Time (Format: 00:00pm)")
 
 	def __str__(self):
 		return str(self.display_order) + "." + self.day + " - " + self.start

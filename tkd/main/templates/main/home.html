@@ -58,7 +58,7 @@
 								<div class="item-title">{{ announcement.title }}</div>
 							{% endif %}
 							<small>{{ announcement.date_posted }}</small>
-							<div>{{ announcement.description }}</div>
+							<div>{{ announcement.description|safe }}</div>
 						</div>
 					{% endfor %}
 				</div>
@@ -80,22 +80,22 @@
 							{% else %}
 								<td>{{ event.start.date }} - {{ event.end.date }}</td>
 							{% endif %}
-							<td rowspan="3" style="vertical-align: top;width: 60%;">{{ event.details }}</td>
+							<td rowspan="3" style="vertical-align: top;width: 60%;">{{ event.details|safe }}</td>
 						</tr>
 						<tr>
 							<td></td>
-							<td>{{ event.start.time }} - {{ event.start.time }}</td>
+							<td>{{ event.start.time }} - {{ event.end.time }}</td>
 						</tr>
 						<tr>
 							<td><img src="{% static 'icon-location.png' %}" width="13px"></td>
-							<td>{{ event.location }}</td>
+							<td>{{ event.location|safe }}</td>
 						</tr>
 						<tr>
 							<td class="dollar">$</td>
 							{% if event.cost == 0 %}
 								<td>FREE</td>
 							{% else %}
-								<td>${{ event.cost }}</td>
+								<td>${{ event.cost|safe }}</td>
 							{% endif %}
 							<td>
 								{% if event.button_url %}
@@ -116,10 +116,10 @@
 					{% for form in forms %}
 					<table class="item">
 						<tr>
-							<td style="width: 80%;" class="item-title">{{ form.title }}</td>
+							<td style="width: 80%;" class="item-title">{{ form.title|safe }}</td>
 							<td><button class="item-btn" onclick="window.open('{{ form.url }}')">Form Link</button></td>
 						</tr>
-					</table>				
+					</table>
 					{% endfor %}
 				</div>
 		</div>
@@ -130,7 +130,7 @@
 					<tr><td colspan="4">  </td></tr><tr><td colspan="4">  </td></tr>
 					<tr>
 						<td>Location</td>
-						<td colspan="3">{{ practice_times.location }}</td>
+						<td colspan="3">{{ practice_times.location|safe }}</td>
 					</tr>
 					<tr><td colspan="4">  </td></tr><tr><td colspan="4">  </td></tr>
 					{% for time in practice_times.times.all %}
@@ -199,8 +199,8 @@
 		flex: 2;
 	}
 	#image{
-		width: 100%; 
-		height: 750px; 
+		width: 100%;
+		height: 750px;
 		overflow: hidden;
 		position: absolute;
 		top: 0;
@@ -327,7 +327,7 @@
 	}
 	.item-btn:hover{
 		color: white;
-		background-color: black;
+		background-color: #007C41;
 	}
 
 	.nav-announcements:hover{
